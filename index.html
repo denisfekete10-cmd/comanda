@@ -319,6 +319,7 @@ body.editmode .menu-section.compact .addprodbtn {
   position: sticky;
   top: 46px;
   z-index: 90;
+  margin-top: 0 !important;
 }
 .filter-bar-wrap::-webkit-scrollbar { display: none; }
 .filter-btn {
@@ -350,13 +351,7 @@ body.editmode .menu-section.compact .addprodbtn {
 .pbadge-hot { background: rgba(255,102,0,.1); color: #b34700; border: 1px solid rgba(255,102,0,.2); }
 .pbadge-top { background: rgba(212,160,23,.12); color: #7a5c00; border: 1px solid rgba(212,160,23,.25); }
 
-/* ── NEW CIRCLE pulse ── */
-@keyframes pulse-once {
-  0%   { box-shadow: 0 0 0 0 rgba(192,24,26,.7); }
-  60%  { box-shadow: 0 0 0 10px rgba(192,24,26,0); }
-  100% { box-shadow: 0 0 0 0 rgba(192,24,26,0); }
-}
-.new-circle.pulse { animation: pulse-once .8s ease forwards; }
+
 
 
 .filter-btn {
@@ -433,6 +428,130 @@ nav label.navbtn:hover {
   border-color: rgba(212,160,23,.6) !important;
 }
 #main-nav { padding: 4px 8px !important; gap: 4px !important; }
+
+/* ── BACK TO HOME BTN ── */
+#back-to-home {
+  position: fixed;
+  bottom: 80px;
+  right: 16px;
+  width: 42px; height: 42px;
+  background: var(--nav-bg);
+  border: 1px solid rgba(212,160,23,.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 150;
+  font-size: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+  transition: opacity .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+#back-to-home:active { opacity: .7; }
+
+
+
+/* ── SHARE BTN pe card ── */
+.card-share {
+  width: 28px; height: 28px;
+  background: rgba(192,24,26,.08);
+  border: 1px solid rgba(192,24,26,.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  color: #C0181A;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .15s;
+  align-self: flex-end;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.card-share:active { background: rgba(192,24,26,.15); }
+
+.pbadge-new { background: rgba(192,24,26,.12); color: #C0181A; border: 1px solid rgba(192,24,26,.25); }
+
+/* ── CLOSED POPUP ── */
+#closed-popup {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1A1009;
+  border: 1px solid rgba(212,160,23,.35);
+  border-radius: 18px;
+  padding: 28px 28px 24px;
+  z-index: 999;
+  max-width: 300px;
+  width: 88%;
+  text-align: center;
+  font-family: var(--font-body);
+  box-shadow: 0 8px 40px rgba(0,0,0,.6);
+  animation: popupIn .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+#closed-popup.show { display: block; }
+@keyframes popupIn {
+  from { opacity:0; transform:translate(-50%,-60%); }
+  to   { opacity:1; transform:translate(-50%,-50%); }
+}
+.popup-clock {
+  font-size: 42px;
+  display: inline-block;
+  animation: clockSwing 2s ease-in-out infinite;
+  transform-origin: top center;
+}
+@keyframes clockSwing {
+  0%,100% { transform: rotate(-12deg); }
+  50%      { transform: rotate(12deg); }
+}
+.popup-title {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-size: 20px;
+  color: #FDF6E3;
+  margin: 12px 0 6px;
+}
+.popup-text {
+  font-size: 12px;
+  color: rgba(253,246,227,.6);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.popup-schedule {
+  background: rgba(212,160,23,.1);
+  border: 1px solid rgba(212,160,23,.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: rgba(253,246,227,.85);
+  margin-bottom: 16px;
+  text-align: left;
+}
+.popup-schedule div { padding: 3px 0; }
+.popup-schedule .closed-day { color: rgba(253,246,227,.35); text-decoration: line-through; }
+.popup-progress {
+  height: 3px;
+  background: rgba(212,160,23,.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.popup-progress-bar {
+  height: 100%;
+  background: var(--gold, #D4A017);
+  border-radius: 3px;
+  animation: progressDrain 10s linear forwards;
+}
+@keyframes progressDrain {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+#popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 998;
+}
+#popup-overlay.show { display: block; }
 </style>
 <style id="dynamic-nav-css">
 #tab-categorie-noua:checked ~ #categorie-noua { display:block; }
@@ -631,11 +750,11 @@ nav label.navbtn:hover {
 
     <div class="card" data-tags="new veg" data-section="Pizza Clasică">
       <div class="card-name">Primavera<span class="alg"><span>1</span><span>7</span></span></div>
-      <p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella, fior di latte, roșii, rucola, ulei de măsline, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
+      <p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella, fior di latte, roșii, rucola, ulei de măsline, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices">
         <div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>45</span></div>
         <div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>78</span></div>
-      <div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div>
+      </div>
     </div>
 
     
@@ -660,12 +779,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -761,12 +886,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -850,7 +981,7 @@ nav label.navbtn:hover {
       </div>
     </div>
 
-  <div class="card" data-tags="new hot top" data-section="Pizza Specială"><div class="card-name">Dolce Piccante<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella,&nbsp;spianata piccante, fior di latte, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>48</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>83</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Specială"><div class="card-name">Burrata e Prosciutto<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de roșii, mozzarella, prosciutto crudo, burrata, rucola, ulei de măsline</p><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label"><br></span><span class="price-weight"><br></span><span class="price-val"><br></span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div>
+  <div class="card" data-tags="new hot top" data-section="Pizza Specială"><div class="card-name">Dolce Piccante<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella,&nbsp;spianata piccante, fior di latte, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>48</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>83</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Specială"><div class="card-name">Burrata e Prosciutto<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de roșii, mozzarella, prosciutto crudo, burrata, rucola, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label"><br></span><span class="price-weight"><br></span><span class="price-val"><br></span></div></div></div></div>
 <div class="pizza-grid"></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -859,12 +990,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -905,7 +1042,7 @@ nav label.navbtn:hover {
       <p class="card-ing" data-has-text="1">Sos ragu cu carne de vită, șuncă,&nbsp;<span style="background-color: rgb(253, 246, 227);">gran cucina</span>, parmezan</p>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>45</span></div></div>
     </div>
-  <div class="card" data-tags="new top" data-section="Paste"><div class="card-name">Penne alla Burrata<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Sos napoli, burrata, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div>
+  <div class="card" data-tags="new top" data-section="Paste"><div class="card-name">Penne alla Burrata<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Sos napoli, burrata, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div></div>
 
   <div class="subsection-title">Sos Alb &amp; Cremă</div>
   <div class="pizza-grid">
@@ -931,7 +1068,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>52</span></div></div>
     </div>
     
-  <div class="card" data-tags="new top veg" data-section="Paste"><div class="card-name">Tagliatelle al Tartufo<span class="alg"><span>1</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, ciuperci, cremă de trufă, trufă de vară felii</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new hot" data-section="Paste"><div class="card-name">Tagliatelle Dolce Piccante<span class="alg"><span>1</span><span>6</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, gorgonzola, brie, ricotta, nuci, parmezan, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new" data-section="Paste"><div class="card-name">Tagliatelle al Salmone<span class="alg"><span>1</span><span>4</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, somon fume, ceapă, pătrunjel, lămâie&nbsp;</p><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div>
+  <div class="card" data-tags="new top veg" data-section="Paste"><div class="card-name">Tagliatelle al Tartufo<span class="alg"><span>1</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, ciuperci, cremă de trufă, trufă de vară felii</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>60</span></div></div></div><div class="card" data-tags="new hot" data-section="Paste"><div class="card-name">Tagliatelle Dolce Piccante<span class="alg"><span>1</span><span>6</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, gorgonzola, brie, ricotta, nuci, parmezan, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div><div class="card" data-tags="new" data-section="Paste"><div class="card-name">Tagliatelle al Salmone<span class="alg"><span>1</span><span>4</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, somon fume, ceapă, pătrunjel, lămâie&nbsp;</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div></div>
 
   <div class="subsection-title">Fructe de Mare</div>
   <div class="pizza-grid">
@@ -947,7 +1084,7 @@ nav label.navbtn:hover {
     </div>
   <div class="card" data-section="Paste"><div class="card-name">Tagliatelle Gamberetti e Zucchine<span class="alg"><span>1</span><span>2</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb&nbsp;<span style="background-color: rgb(253, 246, 227);">gran cucina</span>, creveți, zucchini, usturoi, parmezan</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">480g</span></span><span class="price-val"><sup>lei</sup>60</span></div></div></div></div>
 
-<div class="pizza-grid"></div><div class="subsection-title"><span class="subtext">IN BIANCO</span></div><div class="pizza-grid"><div class="card" data-tags="veg" data-section="Paste"><div class="card-name">Tagliatelle Funghi Porcini<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Ciuperci hribi, usturoi, unt, pătrunjel, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>52</span></div></div></div><div class="card" data-tags="new top" data-section="Paste"><div class="card-name">Spaghetti Carbonara Classica<span class="alg"><span>1</span><span>3</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Guanciale, ouă, piper negru, pecorino</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>50</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div></section>
+<div class="pizza-grid"></div><div class="subsection-title"><span class="subtext">IN BIANCO</span></div><div class="pizza-grid"><div class="card" data-tags="veg" data-section="Paste"><div class="card-name">Tagliatelle Funghi Porcini<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Ciuperci hribi, usturoi, unt, pătrunjel, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>52</span></div></div></div><div class="card" data-tags="new top" data-section="Paste"><div class="card-name">Spaghetti Carbonara Classica<span class="alg"><span>1</span><span>3</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Guanciale, ouă, piper negru, pecorino</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>50</span></div></div></div></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
   <div class="contact-line">
@@ -955,12 +1092,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1032,12 +1175,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1060,7 +1209,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>28</span></div></div>
     </div>
 
-    <div class="card" data-tags="new veg" data-section="Supe & Salate"><div class="card-name">Supă Cremă de Roșii<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Supă de casă, roșii, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">350g</span></span><span class="price-val"><sup>lei</sup>28</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="veg" data-section="Supe & Salate">
+    <div class="card" data-tags="new veg" data-section="Supe & Salate"><div class="card-name">Supă Cremă de Roșii<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Supă de casă, roșii, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">350g</span></span><span class="price-val"><sup>lei</sup>28</span></div></div></div><div class="card" data-tags="veg" data-section="Supe & Salate">
       <div class="card-name">Supă Cremă de Broccoli<span class="alg"><span>1</span><span>7</span><span>9</span></span></div>
       <p class="card-ing" data-has-text="1">Supă de casă, broccoli, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>28</span></div></div>
@@ -1087,8 +1236,8 @@ nav label.navbtn:hover {
 
     <div class="card" data-tags="new" data-section="Supe & Salate">
       <div class="card-name">Salată Salmone e Avocado<span class="alg"><span>3</span><span>4</span></span></div>
-      <p class="card-ing" data-has-text="1">Salată iceberg, avocado, somon afumat, ou poșat, roșii, castraveți, ceapă roșie, dressing de citrice și ulei de măsline</p>
-      <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>50</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div>
+      <p class="card-ing" data-has-text="1">Salată iceberg, avocado, somon afumat, ou poșat, roșii, castraveți, ceapă roșie, dressing de citrice și ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div>
+      <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>50</span></div></div>
     </div><div class="card" data-section="Supe & Salate">
       <div class="card-name">Salată Gamberetti<span class="alg"><span>2</span></span></div>
       <p class="card-ing" data-has-text="1">Salată iceberg, rucola, morcovi, roșii cherry, creveți trași la tigaie, dressing de citrice și ulei de măsline</p>
@@ -1101,7 +1250,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>45</span></div></div>
     </div>
 
-  <div class="card" data-tags="veg" data-section="Supe & Salate"><div class="card-name">Salată Iceberg<span class="alg"></span></div><p class="card-ing" data-has-text="1">Salată iceberg, lămâie, oțet balsamic, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">200g</span><span class="price-val"><sup>lei</sup>20</span></div></div></div><div class="card" data-tags="new veg top" data-section="Supe & Salate"><div class="card-name">Salată Caprese<span class="alg"><span>7</span></span></div><p class="card-ing" data-has-text="1">Burrata, roșii, ceapă, ulei de măsline, oțet balsamic + foccacia</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250/250g</span><span class="price-val"><sup>lei</sup>53</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div>
+  <div class="card" data-tags="veg" data-section="Supe & Salate"><div class="card-name">Salată Iceberg<span class="alg"></span></div><p class="card-ing" data-has-text="1">Salată iceberg, lămâie, oțet balsamic, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">200g</span><span class="price-val"><sup>lei</sup>20</span></div></div></div><div class="card" data-tags="new veg top" data-section="Supe & Salate"><div class="card-name">Salată Caprese<span class="alg"><span>7</span></span></div><p class="card-ing" data-has-text="1">Burrata, roșii, ceapă, ulei de măsline, oțet balsamic + foccacia</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250/250g</span><span class="price-val"><sup>lei</sup>53</span></div></div></div></div>
 </section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -1110,12 +1259,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1130,7 +1285,7 @@ nav label.navbtn:hover {
   <div class="section-banner"><img class="banner-img" src="https://i.imgur.com/s801DvO.jpg" alt="Fructe de Mare" data-epid="Fructe de Mare" style="object-position:37% 30%;transform:scale(1);transform-origin:37% 30%;height:420px;"></div>
   <div class="pizza-grid">
 
-    <div class="card" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Calamar Fritto<span class="alg"><span>1</span><span>3</span><span>5</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Inele de calamar pane, cartofi pai și sos de maioneză</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/200/80g</span></span><span class="price-val"><sup>lei</sup>60</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-section="Fructe de Mare">
+    <div class="card" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Calamar Fritto<span class="alg"><span>1</span><span>3</span><span>5</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Inele de calamar pane, cartofi pai și sos de maioneză</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/200/80g</span></span><span class="price-val"><sup>lei</sup>60</span></div></div></div><div class="card" data-section="Fructe de Mare">
       <div class="card-name">Calamar alla Griglia<span class="alg"><span>1</span><span>14</span></span></div>
       <p class="card-ing" data-has-text="1">Inele de calamar la grătar, salată asortată și focaccia</p>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">150/80/250g</span><span class="price-val"><sup>lei</sup>60</span></div></div>
@@ -1150,7 +1305,7 @@ nav label.navbtn:hover {
 
     
 
-  <div class="card" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Fritto Misto di Mare<span class="alg"><span>1</span><span>2</span><span>3</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, inele de calamar și midii pane, cartofi pai și sos de maioneză</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250/200/80g</span></span><span class="price-val"><sup>lei</sup>80</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-section="Fructe de Mare"><div class="card-name">Frutti di Mare alla Griglia<span class="alg"><span>1</span><span>2</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, calamar și vongole la grătar, salată asortată și focaccia</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/80/250g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div></div>
+  <div class="card" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Fritto Misto di Mare<span class="alg"><span>1</span><span>2</span><span>3</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, inele de calamar și midii pane, cartofi pai și sos de maioneză</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250/200/80g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div><div class="card" data-section="Fructe de Mare"><div class="card-name">Frutti di Mare alla Griglia<span class="alg"><span>1</span><span>2</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, calamar și vongole la grătar, salată asortată și focaccia</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/80/250g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div></div>
 <div class="pizza-grid"></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -1159,12 +1314,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1212,12 +1373,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1232,7 +1399,7 @@ nav label.navbtn:hover {
   <div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/Mc8k1l5.jpg" alt="Desert" data-epid="Desert" style="object-position: 50% 100%; transform: scale(1); transform-origin: 50% 100%; height: 420px;"></div>
   <div class="pizza-grid">
 
-    <div class="card" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella și frișcă<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, frișcă, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="veg" data-section="Deserturi">
+    <div class="card" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella și frișcă<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, frișcă, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div></div></div><div class="card" data-tags="veg" data-section="Deserturi">
       <div class="card-name">Papanași<span class="alg"><span>1</span><span>3</span><span>7</span></span></div>
       <p class="card-ing" data-has-text="1">Dulceață de fructe de pădure, smântână</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250g</span><span class="price-val"><sup>lei</sup>30</span></div></div>
@@ -1259,12 +1426,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1337,12 +1510,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1373,16 +1552,22 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
-</div><div id="categorie-noua-3" class="tab-content"><section class="menu-section"><div class="section-header"><h2>PIZZA ALBĂ</h2><p>32 cm Standard · 50 cm Familială</p></div><div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/suI3M4p.jpg" alt="Categorie nouă" data-epid="Pizza Albă" style="object-position: 44% 61%; transform: scale(1); transform-origin: 44% 61%; height: 420px;"></div><div class="pizza-grid"><div class="card" data-tags="new top" data-section="Pizza Albă"><div class="card-name">Pollo e Funghi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, piept de pui, ciuperci, ceapă</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">600g</span><span class="price-val"><sup>lei</sup>43</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1350g</span><span class="price-val"><sup>lei</sup>75</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Albă"><div class="card-name">Salmone Ricotta<span class="alg"><span>1</span><span>4</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de smântână cu usturoi, mozzarella, ricotta, spanac, somon fume</p><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">520g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1175g</span><span class="price-val"><sup>lei</sup>95</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Albă"><div class="card-name">Bianca Carciofi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, bacon, anghinare, piper</p><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">550g</span><span class="price-val"><sup>lei</sup>45</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1250g</span><span class="price-val"><sup>lei</sup>78</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new veg" data-section="Pizza Albă"><div class="card-name">Tartufo Bianca<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, ciuperci, cremă de trufă, trufă de vară felii, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">500g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1100g</span><span class="price-val"><sup>lei</sup>104</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div><div class="card" data-tags="new hot" data-section="Pizza Albă"><div class="card-name">Cinque Saporri<span class="alg"><span>1</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, gorgonzola, brie, ricotta, nuci, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>49</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>85</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">NEW</span></div></div></div></div></section>
+</div><div id="categorie-noua-3" class="tab-content"><section class="menu-section"><div class="section-header"><h2>PIZZA ALBĂ</h2><p>32 cm Standard · 50 cm Familială</p></div><div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/suI3M4p.jpg" alt="Categorie nouă" data-epid="Pizza Albă" style="object-position: 44% 61%; transform: scale(1); transform-origin: 44% 61%; height: 420px;"></div><div class="pizza-grid"><div class="card" data-tags="new top" data-section="Pizza Albă"><div class="card-name">Pollo e Funghi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, piept de pui, ciuperci, ceapă</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">600g</span><span class="price-val"><sup>lei</sup>43</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1350g</span><span class="price-val"><sup>lei</sup>75</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Albă"><div class="card-name">Salmone Ricotta<span class="alg"><span>1</span><span>4</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de smântână cu usturoi, mozzarella, ricotta, spanac, somon fume</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">520g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1175g</span><span class="price-val"><sup>lei</sup>95</span></div></div></div><div class="card" data-tags="new" data-section="Pizza Albă"><div class="card-name">Bianca Carciofi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, bacon, anghinare, piper</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">550g</span><span class="price-val"><sup>lei</sup>45</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1250g</span><span class="price-val"><sup>lei</sup>78</span></div></div></div><div class="card" data-tags="new veg" data-section="Pizza Albă"><div class="card-name">Tartufo Bianca<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, ciuperci, cremă de trufă, trufă de vară felii, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">500g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1100g</span><span class="price-val"><sup>lei</sup>104</span></div></div></div><div class="card" data-tags="new hot" data-section="Pizza Albă"><div class="card-name">Cinque Saporri<span class="alg"><span>1</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, gorgonzola, brie, ricotta, nuci, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>49</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>85</span></div></div></div></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
   <div class="contact-line">
@@ -1390,12 +1575,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1407,12 +1598,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1469,12 +1666,18 @@ nav label.navbtn:hover {
     <span class="contact-text">0751 380 867</span>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
-    <span class="contact-text">@millesaporri</span>
+    <a href="https://www.instagram.com/millesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+    <span class="contact-text">@millesaporri</span></a>
   </div>
   <div class="contact-line">
-    <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
-    <span class="contact-text">Pizzeria mille saporri</span>
+    <a href="https://www.facebook.com/pizzeriamillesaporri" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;"><div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+    <span class="contact-text">Pizzeria mille saporri</span></a>
+  </div>
+  <div class="contact-line">
+    <a href="https://maps.app.goo.gl/WQi1W9qjx2qVkQv48" target="_blank" style="display:flex;align-items:center;gap:13px;text-decoration:none;">
+      <div class="contact-icon"><svg viewBox="0 0 24 24" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+      <span class="contact-text">Vezi pe hartă</span>
+    </a>
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
@@ -1492,10 +1695,13 @@ nav label.navbtn:hover {
 
 
 <div style="position:fixed;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--warm,#FFFAF2) 70%,transparent);padding:16px 20px 18px;z-index:200;pointer-events:none;">
-  <a href="tel:0751380867" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:600px;margin:0 auto;padding:14px 20px;background:#C0181A;color:#fff;border-radius:14px;font-size:14px;font-weight:600;font-family:var(--font-body,sans-serif);text-decoration:none;box-shadow:0 4px 18px rgba(192,24,26,.4);pointer-events:all;letter-spacing:.02em;">
+  <div style="display:flex;gap:10px;width:100%;max-width:600px;margin:0 auto;">
+  <a href="tel:0751380867" style="display:flex;align-items:center;justify-content:center;gap:8px;flex:1;padding:14px 20px;background:#C0181A;color:#fff;border-radius:14px;font-size:14px;font-weight:600;font-family:var(--font-body,sans-serif);text-decoration:none;box-shadow:0 4px 18px rgba(192,24,26,.4);pointer-events:all;letter-spacing:.02em;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
     Sună să comanzi — 0751 380 867
   </a>
+  <div id="dlv-btn-cta" style="width:50px;height:50px;background:#1A1009;border:1px solid rgba(212,160,23,.35);border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;pointer-events:all;flex-shrink:0;-webkit-tap-highlight-color:transparent;" title="Info livrare">🛵</div>
+</div>
 </div>
 <script>
 (function() {
@@ -1643,19 +1849,16 @@ nav label.navbtn:hover {
 
 
   // ── HOME SCREEN ──
-  var homeScreen = document.getElementById('home-screen');
-
   document.querySelectorAll('.home-cat').forEach(function(cat) {
     cat.addEventListener('click', function() {
+      var homeScreen = document.getElementById('home-screen');
       var tabId = cat.dataset.goto;
-      // Click radio button pentru tab
       var radio = document.getElementById(tabId);
       if (radio) radio.click();
-      // Ascunde home screen cu animatie
-      homeScreen.classList.add('hidden');
-      setTimeout(function() {
-        homeScreen.style.display = 'none';
-      }, 300);
+      if (homeScreen) {
+        homeScreen.classList.add('hidden');
+        setTimeout(function() { homeScreen.style.display = 'none'; }, 300);
+      }
       window.scrollTo(0, 0);
     });
   });
@@ -1741,13 +1944,148 @@ nav label.navbtn:hover {
   function fixFilterBarTop() {
     var nav = document.getElementById('main-nav');
     var filterBar = document.querySelector('.filter-bar-wrap');
-    if (nav && filterBar) {
-      var h = nav.offsetHeight;
-      filterBar.style.setProperty('top', h + 'px', 'important');
-    }
+    if (!nav || !filterBar) return;
+    var navH = nav.offsetHeight;
+    var filterH = filterBar.offsetHeight;
+    filterBar.style.setProperty('top', navH + 'px', 'important');
+
   }
-  fixFilterBarTop();
+  setTimeout(fixFilterBarTop, 200);
   window.addEventListener('resize', fixFilterBarTop);
+
+
+  // ── SCROLL TO TOP LA SCHIMBARE CATEGORIE ──
+  document.querySelectorAll('.tabradio').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // ── BACK TO HOME BTN ──
+  var backBtn = document.createElement('div');
+  backBtn.id = 'back-to-home';
+  backBtn.innerHTML = '⌂';
+  backBtn.title = 'Înapoi la categorii';
+  document.body.appendChild(backBtn);
+
+  backBtn.addEventListener('click', function() {
+    var hs = document.getElementById('home-screen');
+    if (hs) {
+      hs.style.display = 'block';
+      hs.style.opacity = '0';
+      setTimeout(function() { hs.style.opacity = '1'; hs.style.transition = 'opacity .3s'; hs.classList.remove('hidden'); }, 10);
+      window.scrollTo(0, 0);
+    }
+  });
+
+  setTimeout(fixFilterBarTop, 200);
+
+  // ── SHARE BTN ──
+  document.querySelectorAll('.card').forEach(function(card) {
+    var nameEl = card.querySelector('.card-name');
+    if (!nameEl) return;
+    var name = nameEl.textContent.trim().replace(/[\d\s]+$/, '').trim();
+
+    var shareBtn = document.createElement('div');
+    shareBtn.className = 'card-share';
+    shareBtn.innerHTML = '↑';
+    shareBtn.title = 'Distribuie';
+    card.appendChild(shareBtn);
+
+    shareBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var shareData = {
+        title: 'Mille Saporri — ' + name,
+        text: name + ' · Mille Saporri',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(function() {});
+      } else {
+        navigator.clipboard && navigator.clipboard.writeText(window.location.href);
+        shareBtn.innerHTML = '✓';
+        setTimeout(function() { shareBtn.innerHTML = '↑'; }, 1500);
+      }
+    });
+    // Append share btn after card-prices, not absolute positioned
+    var prices = card.querySelector('.card-prices');
+    if (prices) prices.appendChild(shareBtn);
+    else card.appendChild(shareBtn);
+  });
+
+  // ── DELIVERY INFO (doar online) ──
+  var dlvBtn = document.getElementById('dlv-btn-cta');
+
+  var dlvPanel = document.createElement('div');
+  dlvPanel.style.cssText = 'display:none;position:fixed;bottom:90px;right:16px;background:#1A1009;border:1px solid rgba(212,160,23,.3);border-radius:12px;padding:14px 16px;z-index:151;max-width:280px;font-family:var(--font-body);box-shadow:0 4px 20px rgba(0,0,0,.4);';
+  dlvPanel.innerHTML =
+    '<div style="font-size:12px;font-weight:700;color:#FDF6E3;margin-bottom:8px;letter-spacing:.04em;">Info Livrare</div>' +
+    '<div style="font-size:11px;color:rgba(253,246,227,.7);line-height:1.6;">' +
+    '🕓 Miercuri–Duminică, 16:00–22:00<br>' +
+    '💸 Comandă minimă oraș: <strong style="color:#FDF6E3;">70 lei</strong><br>' +
+    '🚗 Taxă transport: <strong style="color:#FDF6E3;">5 lei</strong><br><br>' +
+    '<span style="color:rgba(212,160,23,.9);font-size:10px;">📍 Zone cu min. 100 lei:</span><br>' +
+    '<span style="font-size:10px;">Chinari · Berghia · Panet · Cart. Orizont</span>' +
+    '</div>';
+  document.body.appendChild(dlvPanel);
+
+  var dlvOpen = false;
+  dlvBtn.addEventListener('click', function() {
+    dlvOpen = !dlvOpen;
+    dlvPanel.style.display = dlvOpen ? 'block' : 'none';
+  });
+  document.addEventListener('click', function(e) {
+    if (!dlvBtn.contains(e.target) && !dlvPanel.contains(e.target)) {
+      dlvOpen = false;
+      dlvPanel.style.display = 'none';
+    }
+  });
+
+
+
+  // ── POPUP INCHIS ──
+  function isRestaurantOpen() {
+    var d = new Date(), day = d.getDay(), h = d.getHours() + d.getMinutes()/60;
+    if (day === 1 || day === 2) return false;
+    return h >= 16 && h < 22;
+  }
+
+  function showClosedPopup() {
+    if (isRestaurantOpen()) return;
+    if (document.getElementById('closed-popup')) return;
+    var ov = document.createElement('div');
+    ov.id = 'popup-overlay'; ov.className = 'show';
+    document.body.appendChild(ov);
+    var pop = document.createElement('div');
+    pop.id = 'closed-popup'; pop.className = 'show';
+    pop.innerHTML =
+      '<div class="popup-clock">🕐</div>' +
+      '<div class="popup-title">Momentan suntem închiși</div>' +
+      '<div class="popup-text">Ne găsești din nou la 16:00.<br>Până atunci, poți răsfoi meniul!</div>' +
+      '<div class="popup-schedule">' +
+        '<div class="closed-day">Luni — Închis</div>' +
+        '<div class="closed-day">Marți — Închis</div>' +
+        '<div>Miercuri – Duminică · 16:00–22:00</div>' +
+      '</div>' +
+      '<div class="popup-progress"><div class="popup-progress-bar"></div></div>';
+    document.body.appendChild(pop);
+    var t = setTimeout(function() {
+      pop.style.transition = 'opacity .3s';
+      pop.style.opacity = '0';
+      ov.style.transition = 'opacity .3s';
+      ov.style.opacity = '0';
+      setTimeout(function() { pop.remove(); ov.remove(); }, 300);
+    }, 10000);
+    ov.addEventListener('click', function() {
+      clearTimeout(t); pop.remove(); ov.remove();
+    });
+  }
+
+  document.querySelectorAll('.home-cat').forEach(function(cat) {
+    cat.addEventListener('click', function() {
+      setTimeout(showClosedPopup, 600);
+    });
+  });
 
 })();
 </script>
