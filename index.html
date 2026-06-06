@@ -1736,6 +1736,19 @@ nav label.navbtn:hover {
     });
   });
 
+
+  // ── FIX FILTER BAR TOP DINAMIC ──
+  function fixFilterBarTop() {
+    var nav = document.getElementById('main-nav');
+    var filterBar = document.querySelector('.filter-bar-wrap');
+    if (nav && filterBar) {
+      var h = nav.offsetHeight;
+      filterBar.style.setProperty('top', h + 'px', 'important');
+    }
+  }
+  fixFilterBarTop();
+  window.addEventListener('resize', fixFilterBarTop);
+
 })();
 </script>
 <style>
@@ -1770,4 +1783,5 @@ nav label.navbtn {
   border-bottom: 1px solid #C0181A !important;
 }
 </style>
+
 </body></html>
