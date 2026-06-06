@@ -1701,9 +1701,9 @@ nav label.navbtn:hover {
     
     // Reset all
     labels.forEach(function(l) {
-      l.style.background = 'transparent';
-      l.style.color = 'rgba(253,246,227,0.6)';
-      l.style.borderColor = 'rgba(212,160,23,0.3)';
+      l.style.setProperty('background', 'transparent', 'important');
+      l.style.setProperty('color', 'rgba(253,246,227,0.6)', 'important');
+      l.style.setProperty('border-color', 'rgba(212,160,23,0.3)', 'important');
     });
     
     // Find checked radio and highlight its label
@@ -1711,9 +1711,9 @@ nav label.navbtn:hover {
       if (radio.checked) {
         var label = document.querySelector('nav label[for="' + radio.id + '"]');
         if (label) {
-          label.style.background = '#C0181A';
-          label.style.color = '#ffffff';
-          label.style.borderColor = '#C0181A';
+          label.style.setProperty('background', '#C0181A', 'important');
+          label.style.setProperty('color', '#ffffff', 'important');
+          label.style.setProperty('border-color', '#C0181A', 'important');
         }
       }
     });
