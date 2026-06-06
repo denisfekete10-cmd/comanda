@@ -268,27 +268,27 @@ body.editmode .menu-section.compact .addprodbtn {
 
 .tab-content { display: none; }
 #tab-pizza-clasica:checked ~ #pizza-clasica { display: block; }
-#tab-pizza-clasica:checked ~ #main-nav label[for="tab-pizza-clasica"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-pizza-clasica:checked ~ #main-nav label[for="tab-pizza-clasica"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-pizza-casa:checked ~ #pizza-casa { display: block; }
-#tab-pizza-casa:checked ~ #main-nav label[for="tab-pizza-casa"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-pizza-casa:checked ~ #main-nav label[for="tab-pizza-casa"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-pizza-speciala:checked ~ #pizza-speciala { display: block; }
-#tab-pizza-speciala:checked ~ #main-nav label[for="tab-pizza-speciala"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-pizza-speciala:checked ~ #main-nav label[for="tab-pizza-speciala"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-paste:checked ~ #paste { display: block; }
-#tab-paste:checked ~ #main-nav label[for="tab-paste"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-paste:checked ~ #main-nav label[for="tab-paste"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-paste-forno:checked ~ #paste-forno { display: block; }
-#tab-paste-forno:checked ~ #main-nav label[for="tab-paste-forno"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-paste-forno:checked ~ #main-nav label[for="tab-paste-forno"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-supe-salate:checked ~ #supe-salate { display: block; }
-#tab-supe-salate:checked ~ #main-nav label[for="tab-supe-salate"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-supe-salate:checked ~ #main-nav label[for="tab-supe-salate"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-fructe-mare:checked ~ #fructe-mare { display: block; }
-#tab-fructe-mare:checked ~ #main-nav label[for="tab-fructe-mare"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-fructe-mare:checked ~ #main-nav label[for="tab-fructe-mare"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-crispy:checked ~ #crispy { display: block; }
-#tab-crispy:checked ~ #main-nav label[for="tab-crispy"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-crispy:checked ~ #main-nav label[for="tab-crispy"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-desert:checked ~ #desert { display: block; }
-#tab-desert:checked ~ #main-nav label[for="tab-desert"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-desert:checked ~ #main-nav label[for="tab-desert"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-extras:checked ~ #extras { display: block; }
-#tab-extras:checked ~ #main-nav label[for="tab-extras"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-extras:checked ~ #main-nav label[for="tab-extras"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-alergeni:checked ~ #alergeni { display: block; }
-#tab-alergeni:checked ~ #main-nav label[for="tab-alergeni"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-alergeni:checked ~ #main-nav label[for="tab-alergeni"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 
 .new-circle {
   width: 34px; height: 34px;
@@ -357,29 +357,177 @@ body.editmode .menu-section.compact .addprodbtn {
   100% { box-shadow: 0 0 0 0 rgba(192,24,26,0); }
 }
 .new-circle.pulse { animation: pulse-once .8s ease forwards; }
+
+
+.filter-btn {
+  font-size: 11px !important;
+  padding: 6px 13px !important;
+}
+
+/* ── HOME SCREEN ── */
+#home-screen {
+  position: fixed;
+  inset: 0;
+  background: #1A1009;
+  z-index: 999;
+  overflow-y: auto;
+  transition: opacity .3s ease, transform .3s ease;
+}
+#home-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+}
+.home-logo-bar { padding: 40px 20px 20px; text-align: center; }
+.home-logo-bar h1 { font-family: var(--font-title); font-style: italic; font-size: 28px; color: #FDF6E3; margin: 0; letter-spacing: .04em; }
+.home-logo-bar p { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(253,246,227,.4); margin: 5px 0 0; }
+.home-divider { height: 1px; background: rgba(212,160,23,.2); margin: 0 20px; }
+.home-cats { padding: 18px 16px 40px; display: flex; flex-direction: column; gap: 10px; }
+.home-cat {
+  background: #FDF6E3;
+  border-radius: 12px;
+  padding: 15px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer;
+  transition: transform .15s;
+  position: relative; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.home-cat:active { transform: scale(.98); }
+.home-cat::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 12px 0 0 12px; }
+.home-cat-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+.home-cat-info { flex: 1; }
+.home-cat-name { font-family: var(--font-title); font-size: 15px; font-weight: 700; color: #1A1009; line-height: 1.2; }
+.home-cat-sub { font-size: 11px; color: #7a6a5a; margin-top: 2px; }
+.home-cat-arrow { color: #c0c0b0; font-size: 20px; flex-shrink: 0; line-height: 1; }
+.home-badge-new { display: inline-block; background: #C0181A; color: #fff; font-size: 7.5px; font-weight: 800; padding: 2px 5px; border-radius: 10px; margin-left: 5px; vertical-align: middle; letter-spacing: .06em; font-family: var(--font-body); }
+
+
+/* Nav wrap padding */
+#main-nav { padding: 2px 6px !important; }
+
+/* ── NAV PILL STYLE ── */
+nav label.navbtn {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  padding: 8px 14px !important;
+  margin: 6px 3px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(212,160,23,.3) !important;
+  border-bottom: 1px solid rgba(212,160,23,.3) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: .04em !important;
+  text-transform: none !important;
+  color: rgba(253,246,227,.6) !important;
+  background: transparent !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none !important;
+  transition: background .2s, color .2s, border-color .2s !important;
+}
+nav label.navbtn:hover {
+  color: rgba(253,246,227,.9) !important;
+  border-color: rgba(212,160,23,.6) !important;
+}
+#main-nav { padding: 4px 8px !important; gap: 4px !important; }
 </style>
 <style id="dynamic-nav-css">
 #tab-categorie-noua:checked ~ #categorie-noua { display:block; }
-#tab-categorie-noua:checked ~ #main-nav label[for="tab-categorie-noua"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua:checked ~ #main-nav label[for="tab-categorie-noua"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua:checked ~ #categorie-noua { display:block; }
-#tab-categorie-noua:checked ~ #main-nav label[for="tab-categorie-noua"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua:checked ~ #main-nav label[for="tab-categorie-noua"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua-2:checked ~ #categorie-noua-2 { display:block; }
-#tab-categorie-noua-2:checked ~ #main-nav label[for="tab-categorie-noua-2"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua-2:checked ~ #main-nav label[for="tab-categorie-noua-2"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua-3:checked ~ #categorie-noua-3 { display:block; }
-#tab-categorie-noua-3:checked ~ #main-nav label[for="tab-categorie-noua-3"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua-3:checked ~ #main-nav label[for="tab-categorie-noua-3"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua-2:checked ~ #categorie-noua-2 { display:block; }
-#tab-categorie-noua-2:checked ~ #main-nav label[for="tab-categorie-noua-2"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua-2:checked ~ #main-nav label[for="tab-categorie-noua-2"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua-3:checked ~ #categorie-noua-3 { display:block; }
-#tab-categorie-noua-3:checked ~ #main-nav label[for="tab-categorie-noua-3"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua-3:checked ~ #main-nav label[for="tab-categorie-noua-3"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-categorie-noua-4:checked ~ #categorie-noua-4 { display:block; }
-#tab-categorie-noua-4:checked ~ #main-nav label[for="tab-categorie-noua-4"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-categorie-noua-4:checked ~ #main-nav label[for="tab-categorie-noua-4"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 #tab-cafele:checked ~ #cafele { display:block; }
-#tab-cafele:checked ~ #main-nav label[for="tab-cafele"] { color: var(--gold); border-bottom-color: var(--gold); }</style><style>
+#tab-cafele:checked ~ #main-nav label[for="tab-cafele"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }</style><style>
 #tab-nutri:checked ~ #nutri { display: block; }
-#tab-nutri:checked ~ #main-nav label[for="tab-nutri"] { color: var(--gold); border-bottom-color: var(--gold); }
+#tab-nutri:checked ~ #main-nav label[for="tab-nutri"] { background: #C0181A !important; color: #fff !important; border-radius: 20px !important; border-color: #C0181A !important; }
 </style>
 </head>
-<body class="ep-mode">
+<body class="ep-mode"><div id="home-screen">
+  <div class="home-logo-bar">
+    <h1>Mille Saporri</h1>
+    <p>Pizzerie · Restaurant</p>
+  </div>
+  <div class="home-divider"></div>
+  <div class="home-cats">
+    <div class="home-cat" data-goto="tab-pizza-clasica" style="border:1.5px solid rgba(212,160,23,.3);">
+      <div class="home-cat-icon" style="background:rgba(192,24,26,.1);">🍕</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Pizza <span class="home-badge-new">NOU</span></div>
+        <div class="home-cat-sub">Clasică · Specială · Albă</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-paste" style="border:1.5px solid rgba(212,160,23,.3);">
+      <div class="home-cat-icon" style="background:rgba(212,160,23,.12);">🍝</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Paste <span class="home-badge-new">NOU</span></div>
+        <div class="home-cat-sub">Paste · Paste al Forno</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-supe-salate" style="border:1.5px solid rgba(212,160,23,.3);">
+      <div class="home-cat-icon" style="background:rgba(45,122,45,.1);">🥗</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Supe & Salate <span class="home-badge-new">NOU</span></div>
+        <div class="home-cat-sub">Supe cremă · Salate</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-fructe-mare" style="border:1.5px solid rgba(212,160,23,.3);">
+      <div class="home-cat-icon" style="background:rgba(24,95,165,.1);">🦐</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Fructe de Mare <span class="home-badge-new">NOU</span></div>
+        <div class="home-cat-sub">Fritto · Griglia · Mix</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-crispy">
+      <div class="home-cat-icon" style="background:rgba(179,71,0,.1);">🍗</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Crispy</div>
+        <div class="home-cat-sub">Chicken · Cartofi</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-desert" style="border:1.5px solid rgba(212,160,23,.3);">
+      <div class="home-cat-icon" style="background:rgba(153,53,86,.1);">🍰</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Deserturi <span class="home-badge-new">NOU</span></div>
+        <div class="home-cat-sub">Tiramisu · Lava Cake · Melba</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-categorie-noua-4">
+      <div class="home-cat-icon" style="background:rgba(15,110,86,.1);">🍹</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Băuturi</div>
+        <div class="home-cat-sub">Cocktails · Reci · Calde · Vinuri</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+    <div class="home-cat" data-goto="tab-extras">
+      <div class="home-cat-icon" style="background:rgba(107,76,42,.1);">➕</div>
+      <div class="home-cat-info">
+        <div class="home-cat-name">Extras</div>
+        <div class="home-cat-sub">Cutii · Sosuri · Altele</div>
+      </div>
+      <span class="home-cat-arrow">›</span>
+    </div>
+  </div>
+</div>
 
 <!-- CSS-only tab switching: no JavaScript needed -->
 <input type="radio" name="menutab" id="tab-cafele" class="tabradio"><input type="radio" name="menutab" id="tab-categorie-noua-4" class="tabradio"><input type="radio" name="menutab" id="tab-categorie-noua-3" class="tabradio"><input type="radio" name="menutab" id="tab-categorie-noua-2" class="tabradio"><input type="radio" name="menutab" id="tab-categorie-noua" class="tabradio"><input type="radio" name="menutab" id="tab-pizza-clasica" checked="" class="tabradio">
@@ -1477,6 +1625,149 @@ body.editmode .menu-section.compact .addprodbtn {
     }, { threshold: 0.8 });
     document.querySelectorAll('.new-circle').forEach(function(el) { obs.observe(el); });
   }
+
+  // Scroll hint pe nav
+  var navEl = document.querySelector('nav');
+  var hint = document.createElement('div');
+  hint.className = 'nav-scroll-hint';
+  hint.innerHTML = '›';
+  var navWrap = document.querySelector('.nav-wrap');
+  if (navWrap) {
+    navWrap.style.position = 'relative';
+    navWrap.appendChild(hint);
+    setTimeout(function() { hint.classList.add('visible'); }, 800);
+    navEl && navEl.addEventListener('scroll', function() {
+      hint.style.display = 'none';
+    }, { once: true });
+  }
+
+
+  // ── HOME SCREEN ──
+  var homeScreen = document.getElementById('home-screen');
+
+  document.querySelectorAll('.home-cat').forEach(function(cat) {
+    cat.addEventListener('click', function() {
+      var tabId = cat.dataset.goto;
+      // Click radio button pentru tab
+      var radio = document.getElementById(tabId);
+      if (radio) radio.click();
+      // Ascunde home screen cu animatie
+      homeScreen.classList.add('hidden');
+      setTimeout(function() {
+        homeScreen.style.display = 'none';
+      }, 300);
+      window.scrollTo(0, 0);
+    });
+  });
+
+
+  // ── SCROLL ACTIVE NAV BTN INTO CENTER ──
+  function scrollActiveNav() {
+    var nav = document.getElementById('main-nav');
+    if (!nav) return;
+    var active = nav.querySelector('label.navbtn.active') ||
+                 Array.from(nav.querySelectorAll('label.navbtn')).find(function(l) {
+                   var forId = l.getAttribute('for');
+                   var radio = document.getElementById(forId);
+                   return radio && radio.checked;
+                 });
+    if (!active) return;
+    var btnLeft = active.offsetLeft;
+    var btnWidth = active.offsetWidth;
+    var navWidth = nav.offsetWidth;
+    nav.scrollTo({ left: btnLeft - (navWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
+  }
+
+  // Scroll on radio change
+  document.querySelectorAll('.tabradio').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      setTimeout(scrollActiveNav, 50);
+    });
+  });
+
+  // Also scroll when home cat clicked
+  var origHomeCats = document.querySelectorAll('.home-cat');
+  origHomeCats.forEach(function(cat) {
+    cat.addEventListener('click', function() {
+      setTimeout(scrollActiveNav, 100);
+    });
+  });
+
+
+  // ── FORCE ACTIVE NAV PILL VIA JS (inline style, highest priority) ──
+  function updateActiveNavPill() {
+    var radios = document.querySelectorAll('.tabradio');
+    var labels = document.querySelectorAll('nav label.navbtn');
+    
+    // Reset all
+    labels.forEach(function(l) {
+      l.style.background = 'transparent';
+      l.style.color = 'rgba(253,246,227,0.6)';
+      l.style.borderColor = 'rgba(212,160,23,0.3)';
+    });
+    
+    // Find checked radio and highlight its label
+    radios.forEach(function(radio) {
+      if (radio.checked) {
+        var label = document.querySelector('nav label[for="' + radio.id + '"]');
+        if (label) {
+          label.style.background = '#C0181A';
+          label.style.color = '#ffffff';
+          label.style.borderColor = '#C0181A';
+        }
+      }
+    });
+  }
+
+  // Run on load
+  updateActiveNavPill();
+
+  // Run on every radio change
+  document.querySelectorAll('.tabradio').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      setTimeout(updateActiveNavPill, 10);
+    });
+  });
+
+  // Also run when home cat clicked
+  document.querySelectorAll('.home-cat').forEach(function(cat) {
+    cat.addEventListener('click', function() {
+      setTimeout(updateActiveNavPill, 150);
+    });
+  });
+
 })();
 </script>
+<style>
+/* FINAL OVERRIDE — nav active pill */
+nav label.navbtn {
+  border-bottom: 1px solid rgba(212,160,23,.3) !important;
+  border-radius: 20px !important;
+  background: transparent !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+#tab-pizza-clasica:checked ~ #main-nav label[for="tab-pizza-clasica"],
+#tab-pizza-casa:checked ~ #main-nav label[for="tab-pizza-casa"],
+#tab-pizza-speciala:checked ~ #main-nav label[for="tab-pizza-speciala"],
+#tab-categorie-noua-3:checked ~ #main-nav label[for="tab-categorie-noua-3"],
+#tab-paste:checked ~ #main-nav label[for="tab-paste"],
+#tab-paste-forno:checked ~ #main-nav label[for="tab-paste-forno"],
+#tab-supe-salate:checked ~ #main-nav label[for="tab-supe-salate"],
+#tab-fructe-mare:checked ~ #main-nav label[for="tab-fructe-mare"],
+#tab-crispy:checked ~ #main-nav label[for="tab-crispy"],
+#tab-desert:checked ~ #main-nav label[for="tab-desert"],
+#tab-extras:checked ~ #main-nav label[for="tab-extras"],
+#tab-categorie-noua:checked ~ #main-nav label[for="tab-categorie-noua"],
+#tab-categorie-noua-2:checked ~ #main-nav label[for="tab-categorie-noua-2"],
+#tab-categorie-noua-4:checked ~ #main-nav label[for="tab-categorie-noua-4"],
+#tab-cafele:checked ~ #main-nav label[for="tab-cafele"],
+#tab-alergeni:checked ~ #main-nav label[for="tab-alergeni"],
+#tab-nutri:checked ~ #main-nav label[for="tab-nutri"] {
+  background: #C0181A !important;
+  color: #fff !important;
+  border-color: #C0181A !important;
+  border-radius: 20px !important;
+  border-bottom: 1px solid #C0181A !important;
+}
+</style>
 </body></html>
