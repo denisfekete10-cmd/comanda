@@ -346,7 +346,7 @@ body.editmode .menu-section.compact .addprodbtn {
 
 /* ── PRODUCT BADGES ── */
 .prod-badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; grid-column: 1; }
-.pbadge { font-size: 9px; font-weight: 600; padding: 2px 7px; border-radius: 20px; }
+.pbadge { font-size: 9px; font-weight: 600; padding: 3px 8px; border-radius: 20px; line-height: 1.4; display: inline-flex; align-items: center; height: 20px; }
 .pbadge-veg { background: rgba(45,122,45,.12); color: #1a5c1a; border: 1px solid rgba(45,122,45,.25); }
 .pbadge-hot { background: rgba(255,102,0,.1); color: #b34700; border: 1px solid rgba(255,102,0,.2); }
 .pbadge-top { background: rgba(212,160,23,.12); color: #7a5c00; border: 1px solid rgba(212,160,23,.25); }
@@ -536,6 +536,145 @@ nav label.navbtn:hover {
   z-index: 998;
 }
 #popup-overlay.show { display: block; }
+
+.new-circle {
+  width: 34px; height: 34px;
+  background: #C0181A;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(192,24,26,.4);
+  border: 2px solid #FDF6E3;
+  align-self: flex-end;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.new-circle .nc-dot { width: 3px; height: 3px; background: #fff; border-radius: 50%; margin-bottom: 2px; }
+.new-circle .nc-text { font-size: 7px; font-weight: 900; color: #fff; letter-spacing: .06em; text-transform: uppercase; line-height: 1; }
+@keyframes circleGlow {
+  0%   { box-shadow: 0 3px 10px rgba(192,24,26,.4), 0 0 0 0 rgba(192,24,26,0.7); transform: scale(1); }
+  50%  { box-shadow: 0 3px 10px rgba(192,24,26,.4), 0 0 0 10px rgba(192,24,26,0); transform: scale(1.12); }
+  100% { box-shadow: 0 3px 10px rgba(192,24,26,.4), 0 0 0 0 rgba(192,24,26,0); transform: scale(1); }
+}
+.new-circle.glow-anim {
+  animation: circleGlow 1.6s ease-out forwards;
+}
+
+
+/* ── Modal produs ── */
+.prod-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  align-items: flex-end;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+.prod-modal-overlay.active {
+  display: flex;
+}
+.prod-modal {
+  background: var(--cream, #fdf6e3);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+}
+.prod-modal-overlay.active .prod-modal {
+  transform: translateY(0);
+}
+.prod-modal-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  display: block;
+}
+.prod-modal-body {
+  padding: 20px 20px 32px;
+}
+.prod-modal-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+  z-index: 10;
+}
+.prod-modal-close-bottom {
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(139,0,0,0.12);
+  border: none;
+  color: var(--crimson, #C0181A);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+  z-index: 10;
+}
+.prod-modal-name {
+  font-family: var(--font-title, serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--char, #1a1a1a);
+  margin-bottom: 6px;
+  padding-right: 36px;
+}
+.prod-modal-ing {
+  font-family: var(--font-accent, serif);
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--muted, #666);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.prod-modal-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--crimson, #C0181A);
+  margin-bottom: 14px;
+}
+.prod-modal-price sup { font-size: .65em; }
+.prod-modal-alg-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted, #888);
+  margin-bottom: 7px;
+}
+.prod-modal-alg-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.prod-modal-alg-tag {
+  background: rgba(192,24,26,.08);
+  border: 1px solid rgba(192,24,26,.2);
+  color: var(--crimson, #C0181A);
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
 </style>
 <style id="dynamic-nav-css">
 #tab-categorie-noua:checked ~ #categorie-noua { display:block; }
@@ -734,11 +873,11 @@ nav label.navbtn:hover {
 
     <div class="card" id="p-primavera" data-tags="new veg" data-section="Pizza Clasică">
       <div class="card-name">Primavera<span class="alg"><span>1</span><span>7</span></span></div>
-      <p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella, fior di latte, roșii, rucola, ulei de măsline, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
+      <p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella, fior di latte, roșii, rucola, ulei de măsline, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices">
         <div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>45</span></div>
         <div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>78</span></div>
-      </div>
+      <div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div>
     </div>
 
     
@@ -965,7 +1104,7 @@ nav label.navbtn:hover {
       </div>
     </div>
 
-  <div class="card" id="p-dolce-piccante" data-tags="new hot top" data-section="Pizza Specială"><div class="card-name">Dolce Piccante<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella,&nbsp;spianata piccante, fior di latte, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>48</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>83</span></div></div></div><div class="card" id="p-burrata-e-prosciutto" data-tags="new" data-section="Pizza Specială"><div class="card-name">Burrata e Prosciutto<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de roșii, mozzarella, prosciutto crudo, burrata, rucola, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label"><br></span><span class="price-weight"><br></span><span class="price-val"><br></span></div></div></div></div>
+  <div class="card" id="p-dolce-piccante" data-tags="new hot top" data-section="Pizza Specială"><div class="card-name">Dolce Piccante<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de roșii, mozzarella,&nbsp;spianata piccante, fior di latte, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>48</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>83</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-burrata-e-prosciutto" data-tags="new" data-section="Pizza Specială"><div class="card-name">Burrata e Prosciutto<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de roșii, mozzarella, prosciutto crudo, burrata, rucola, ulei de măsline</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label"><br></span><span class="price-weight"><br></span><span class="price-val"><br></span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div>
 <div class="pizza-grid"></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -1026,7 +1165,7 @@ nav label.navbtn:hover {
       <p class="card-ing" data-has-text="1">Sos ragu cu carne de vită, șuncă,&nbsp;<span style="background-color: rgb(253, 246, 227);">gran cucina</span>, parmezan</p>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>45</span></div></div>
     </div>
-  <div class="card" id="p-penne-alla-burrata" data-tags="new top" data-section="Paste"><div class="card-name">Penne alla Burrata<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Sos napoli, burrata, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div></div>
+  <div class="card" id="p-penne-alla-burrata" data-tags="new top" data-section="Paste"><div class="card-name">Penne alla Burrata<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Sos napoli, burrata, busuioc</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div>
 
   <div class="subsection-title">Sos Alb &amp; Cremă</div>
   <div class="pizza-grid">
@@ -1052,7 +1191,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>52</span></div></div>
     </div>
     
-  <div class="card" id="p-tagliatelle-al-tartufo" data-tags="new top veg" data-section="Paste"><div class="card-name">Tagliatelle al Tartufo<span class="alg"><span>1</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, ciuperci, cremă de trufă, trufă de vară felii</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>60</span></div></div></div><div class="card" id="p-tagliatelle-dolce-piccante" data-tags="new hot" data-section="Paste"><div class="card-name">Tagliatelle Dolce Piccante<span class="alg"><span>1</span><span>6</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, gorgonzola, brie, ricotta, nuci, parmezan, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div><div class="card" id="p-tagliatelle-al-salmone" data-tags="new" data-section="Paste"><div class="card-name">Tagliatelle al Salmone<span class="alg"><span>1</span><span>4</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, somon fume, ceapă, pătrunjel, lămâie&nbsp;</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div></div></div></div>
+  <div class="card" id="p-tagliatelle-al-tartufo" data-tags="new top veg" data-section="Paste"><div class="card-name">Tagliatelle al Tartufo<span class="alg"><span>1</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, ciuperci, cremă de trufă, trufă de vară felii</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-tagliatelle-dolce-piccante" data-tags="new hot" data-section="Paste"><div class="card-name">Tagliatelle Dolce Piccante<span class="alg"><span>1</span><span>6</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, gorgonzola, brie, ricotta, nuci, parmezan, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-tagliatelle-al-salmone" data-tags="new" data-section="Paste"><div class="card-name">Tagliatelle al Salmone<span class="alg"><span>1</span><span>4</span><span>6</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb gran cucina, somon fume, ceapă, pătrunjel, lămâie&nbsp;</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">450g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div>
 
   <div class="subsection-title">Fructe de Mare</div>
   <div class="pizza-grid">
@@ -1068,7 +1207,7 @@ nav label.navbtn:hover {
     </div>
   <div class="card" id="p-tagliatelle-gamberetti-e-zucchine" data-section="Paste"><div class="card-name">Tagliatelle Gamberetti e Zucchine<span class="alg"><span>1</span><span>2</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Sos alb&nbsp;<span style="background-color: rgb(253, 246, 227);">gran cucina</span>, creveți, zucchini, usturoi, parmezan</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">480g</span></span><span class="price-val"><sup>lei</sup>60</span></div></div></div></div>
 
-<div class="pizza-grid"></div><div class="subsection-title"><span class="subtext">IN BIANCO</span></div><div class="pizza-grid"><div class="card" id="p-tagliatelle-funghi-porcini" data-tags="veg" data-section="Paste"><div class="card-name">Tagliatelle Funghi Porcini<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Ciuperci hribi, usturoi, unt, pătrunjel, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>52</span></div></div></div><div class="card" id="p-spaghetti-carbonara-classica" data-tags="new top" data-section="Paste"><div class="card-name">Spaghetti Carbonara Classica<span class="alg"><span>1</span><span>3</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Guanciale, ouă, piper negru, pecorino</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>50</span></div></div></div></div></section>
+<div class="pizza-grid"></div><div class="subsection-title"><span class="subtext">IN BIANCO</span></div><div class="pizza-grid"><div class="card" id="p-tagliatelle-funghi-porcini" data-tags="veg" data-section="Paste"><div class="card-name">Tagliatelle Funghi Porcini<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Ciuperci hribi, usturoi, unt, pătrunjel, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>52</span></div></div></div><div class="card" id="p-spaghetti-carbonara-classica" data-tags="new top" data-section="Paste"><div class="card-name">Spaghetti Carbonara Classica<span class="alg"><span>1</span><span>3</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Guanciale, ouă, piper negru, pecorino</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">380g</span><span class="price-val"><sup>lei</sup>50</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
   <div class="contact-line">
@@ -1193,7 +1332,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>28</span></div></div>
     </div>
 
-    <div class="card" id="p-supa-crema-de-rosii" data-tags="new veg" data-section="Supe & Salate"><div class="card-name">Supă Cremă de Roșii<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Supă de casă, roșii, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">350g</span></span><span class="price-val"><sup>lei</sup>28</span></div></div></div><div class="card" id="p-supa-crema-de-broccoli" data-tags="veg" data-section="Supe & Salate">
+    <div class="card" id="p-supa-crema-de-rosii" data-tags="new veg" data-section="Supe & Salate"><div class="card-name">Supă Cremă de Roșii<span class="alg"><span>1</span><span>7</span><span>9</span></span></div><p class="card-ing" data-has-text="1">Supă de casă, roșii, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">350g</span></span><span class="price-val"><sup>lei</sup>28</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-supa-crema-de-broccoli" data-tags="veg" data-section="Supe & Salate">
       <div class="card-name">Supă Cremă de Broccoli<span class="alg"><span>1</span><span>7</span><span>9</span></span></div>
       <p class="card-ing" data-has-text="1">Supă de casă, broccoli, cartofi, parmezan, crutoane</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>28</span></div></div>
@@ -1220,8 +1359,8 @@ nav label.navbtn:hover {
 
     <div class="card" id="p-salata-salmone-e-avocado" data-tags="new" data-section="Supe & Salate">
       <div class="card-name">Salată Salmone e Avocado<span class="alg"><span>3</span><span>4</span></span></div>
-      <p class="card-ing" data-has-text="1">Salată iceberg, avocado, somon afumat, ou poșat, roșii, castraveți, ceapă roșie, dressing de citrice și ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div>
-      <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>50</span></div></div>
+      <p class="card-ing" data-has-text="1">Salată iceberg, avocado, somon afumat, ou poșat, roșii, castraveți, ceapă roșie, dressing de citrice și ulei de măsline</p><div class="prod-badges"></div>
+      <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>50</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div>
     </div><div class="card" id="p-salata-gamberetti" data-section="Supe & Salate">
       <div class="card-name">Salată Gamberetti<span class="alg"><span>2</span></span></div>
       <p class="card-ing" data-has-text="1">Salată iceberg, rucola, morcovi, roșii cherry, creveți trași la tigaie, dressing de citrice și ulei de măsline</p>
@@ -1234,7 +1373,7 @@ nav label.navbtn:hover {
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">350g</span><span class="price-val"><sup>lei</sup>45</span></div></div>
     </div>
 
-  <div class="card" id="p-salata-iceberg" data-tags="veg" data-section="Supe & Salate"><div class="card-name">Salată Iceberg<span class="alg"></span></div><p class="card-ing" data-has-text="1">Salată iceberg, lămâie, oțet balsamic, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">200g</span><span class="price-val"><sup>lei</sup>20</span></div></div></div><div class="card" id="p-salata-caprese" data-tags="new veg top" data-section="Supe & Salate"><div class="card-name">Salată Caprese<span class="alg"><span>7</span></span></div><p class="card-ing" data-has-text="1">Burrata, roșii, ceapă, ulei de măsline, oțet balsamic + foccacia</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250/250g</span><span class="price-val"><sup>lei</sup>53</span></div></div></div></div>
+  <div class="card" id="p-salata-iceberg" data-tags="veg" data-section="Supe & Salate"><div class="card-name">Salată Iceberg<span class="alg"></span></div><p class="card-ing" data-has-text="1">Salată iceberg, lămâie, oțet balsamic, ulei de măsline</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">200g</span><span class="price-val"><sup>lei</sup>20</span></div></div></div><div class="card" id="p-salata-caprese" data-tags="new veg top" data-section="Supe & Salate"><div class="card-name">Salată Caprese<span class="alg"><span>7</span></span></div><p class="card-ing" data-has-text="1">Burrata, roșii, ceapă, ulei de măsline, oțet balsamic + foccacia</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250/250g</span><span class="price-val"><sup>lei</sup>53</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div>
 </section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -1269,7 +1408,7 @@ nav label.navbtn:hover {
   <div class="section-banner"><img class="banner-img" src="https://i.imgur.com/s801DvO.jpg" alt="Fructe de Mare" data-epid="Fructe de Mare" style="object-position:37% 30%;transform:scale(1);transform-origin:37% 30%;height:420px;"></div>
   <div class="pizza-grid">
 
-    <div class="card" id="p-calamar-fritto" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Calamar Fritto<span class="alg"><span>1</span><span>3</span><span>5</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Inele de calamar pane, cartofi pai și sos de maioneză</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/200/80g</span></span><span class="price-val"><sup>lei</sup>60</span></div></div></div><div class="card" id="p-calamar-alla-griglia" data-section="Fructe de Mare">
+    <div class="card" id="p-calamar-fritto" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Calamar Fritto<span class="alg"><span>1</span><span>3</span><span>5</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Inele de calamar pane, cartofi pai și sos de maioneză</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/200/80g</span></span><span class="price-val"><sup>lei</sup>60</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-calamar-alla-griglia" data-section="Fructe de Mare">
       <div class="card-name">Calamar alla Griglia<span class="alg"><span>1</span><span>14</span></span></div>
       <p class="card-ing" data-has-text="1">Inele de calamar la grătar, salată asortată și focaccia</p>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">150/80/250g</span><span class="price-val"><sup>lei</sup>60</span></div></div>
@@ -1289,7 +1428,7 @@ nav label.navbtn:hover {
 
     
 
-  <div class="card" id="p-fritto-misto-di-mare" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Fritto Misto di Mare<span class="alg"><span>1</span><span>2</span><span>3</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, inele de calamar și midii pane, cartofi pai și sos de maioneză</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250/200/80g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div><div class="card" id="p-frutti-di-mare-alla-griglia" data-section="Fructe de Mare"><div class="card-name">Frutti di Mare alla Griglia<span class="alg"><span>1</span><span>2</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, calamar și vongole la grătar, salată asortată și focaccia</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/80/250g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div></div>
+  <div class="card" id="p-fritto-misto-di-mare" data-tags="new" data-section="Fructe de Mare"><div class="card-name">Fritto Misto di Mare<span class="alg"><span>1</span><span>2</span><span>3</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, inele de calamar și midii pane, cartofi pai și sos de maioneză</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250/200/80g</span></span><span class="price-val"><sup>lei</sup>80</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-frutti-di-mare-alla-griglia" data-section="Fructe de Mare"><div class="card-name">Frutti di Mare alla Griglia<span class="alg"><span>1</span><span>2</span><span>14</span></span></div><p class="card-ing" data-has-text="1">Creveți, calamar și vongole la grătar, salată asortată și focaccia</p><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">200/80/250g</span></span><span class="price-val"><sup>lei</sup>80</span></div></div></div></div>
 <div class="pizza-grid"></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
@@ -1383,7 +1522,7 @@ nav label.navbtn:hover {
   <div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/Mc8k1l5.jpg" alt="Desert" data-epid="Desert" style="object-position: 50% 100%; transform: scale(1); transform-origin: 50% 100%; height: 420px;"></div>
   <div class="pizza-grid">
 
-    <div class="card" id="p-papanasi-cu-nutella-si-frisca" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella și frișcă<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, frișcă, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div></div></div><div class="card" id="p-papanasi" data-tags="veg" data-section="Deserturi">
+    <div class="card" id="p-papanasi-cu-nutella-si-frisca" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella și frișcă<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, frișcă, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-papanasi" data-tags="veg" data-section="Deserturi">
       <div class="card-name">Papanași<span class="alg"><span>1</span><span>3</span><span>7</span></span></div>
       <p class="card-ing" data-has-text="1">Dulceață de fructe de pădure, smântână</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250g</span><span class="price-val"><sup>lei</sup>30</span></div></div>
@@ -1456,12 +1595,12 @@ nav label.navbtn:hover {
       <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.7;min-width:55px;text-align:right;">Familial</span>
     </div>
     <div class="topping-row">
-      <span class="topping-label">Șuncă, salam, piept de pui, bacon, prosciutto crudo, ton, gorgonzola, brie, hribi, mozzarella, parmezan, margini mozzarella, margini cabanos, vongole<span class="alg"></span></span>
+      <span class="topping-label">Șuncă, salam, piept de pui, bacon, prosciutto crudo, spianata piccante, ton, gorgonzola, brie, hribi, mozzarella, parmezan, vongole<span class="alg"></span></span>
       <span class="topping-price">8 lei</span>
       <span class="topping-price2">14 lei</span>
     </div>
     <div class="topping-row">
-      <span class="topping-label">Rucola, anghinare, zucchini, vinete, măsline, ardei gras, ciuperci, roșii, peperoncino, broccoli, usturoi, roșii cherry, ananas, porumb</span>
+      <span class="topping-label">Rucola, anghinare, zucchini, vinete, măsline, ardei gras, ciuperci, roșii, peperoncino, broccoli, usturoi, roșii cherry, porumb</span>
       <span class="topping-price">6 lei</span>
       <span class="topping-price2"><span style="text-align: start;">11</span><span style="text-align: start;">&nbsp;lei</span></span>
     </div>
@@ -1472,8 +1611,23 @@ nav label.navbtn:hover {
     </div>
     <div class="topping-row">
       <span class="topping-label">Extra Burrata</span>
-      <span class="topping-price">30 lei</span>
+      <span class="topping-price">25 lei</span>
       <span class="topping-price2"></span>
+    </div>
+    <div class="topping-row">
+      <span class="topping-label">Model Star</span>
+      <span class="topping-price">7 lei</span>
+      <span class="topping-price2"><br></span>
+    </div>
+    <div class="topping-row">
+      <span class="topping-label">Margini Mozzarella</span>
+      <span class="topping-price">8 lei</span>
+      <span class="topping-price2">16 lei</span>
+    </div>
+    <div class="topping-row">
+      <span class="topping-label">Margini Cabanos cu Muștar</span>
+      <span class="topping-price">8 lei</span>
+      <span class="topping-price2">16 lei</span>
     </div>
   </div>
 
@@ -1482,7 +1636,9 @@ nav label.navbtn:hover {
     <div class="misc-card"><span class="misc-name">Ambalaj Normal</span><span class="misc-price">2.5 lei</span></div>
     <div class="misc-card"><span class="misc-name">Ambalaj Crispy Duo</span><span class="misc-price">3 lei</span></div>
     <div class="misc-card"><span class="misc-name">Ambalaj Crispy Family</span><span class="misc-price">6 lei</span></div>
-    <div class="misc-card"><span class="misc-name">Cutie familială pizza</span><span class="misc-price">3.5 lei</span></div>
+    <div class="misc-card"><span class="misc-name">Ambalaj Fructe de Mare</span><span class="misc-price">3.5 lei</span></div>
+    <div class="misc-card"><span class="misc-name">Ambalaj Parmigiana</span><span class="misc-price">3.5 lei</span></div>
+    <div class="misc-card"><span class="misc-name">Cutie Familială</span><span class="misc-price">3.5 lei</span></div>
     <div class="misc-card"><span class="misc-name">Cutie Standard</span><span class="misc-price">2.5 lei</span></div>
   </div>
 
@@ -1551,7 +1707,7 @@ nav label.navbtn:hover {
   </div>
   <p class="tagline">Preparate cu pasiune · Gust autentic italian</p>
 </footer>
-</div><div id="categorie-noua-3" class="tab-content"><section class="menu-section"><div class="section-header"><h2>PIZZA ALBĂ</h2><p>32 cm Standard · 50 cm Familială</p></div><div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/suI3M4p.jpg" alt="Categorie nouă" data-epid="Pizza Albă" style="object-position: 44% 61%; transform: scale(1); transform-origin: 44% 61%; height: 420px;"></div><div class="pizza-grid"><div class="card" id="p-pollo-e-funghi" data-tags="new top" data-section="Pizza Albă"><div class="card-name">Pollo e Funghi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, piept de pui, ciuperci, ceapă</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">600g</span><span class="price-val"><sup>lei</sup>43</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1350g</span><span class="price-val"><sup>lei</sup>75</span></div></div></div><div class="card" id="p-salmone-ricotta" data-tags="new" data-section="Pizza Albă"><div class="card-name">Salmone Ricotta<span class="alg"><span>1</span><span>4</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de smântână cu usturoi, mozzarella, ricotta, spanac, somon fume</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">520g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1175g</span><span class="price-val"><sup>lei</sup>95</span></div></div></div><div class="card" id="p-bianca-carciofi" data-tags="new" data-section="Pizza Albă"><div class="card-name">Bianca Carciofi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, bacon, anghinare, piper</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">550g</span><span class="price-val"><sup>lei</sup>45</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1250g</span><span class="price-val"><sup>lei</sup>78</span></div></div></div><div class="card" id="p-tartufo-bianca" data-tags="new veg" data-section="Pizza Albă"><div class="card-name">Tartufo Bianca<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, ciuperci, cremă de trufă, trufă de vară felii, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">500g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1100g</span><span class="price-val"><sup>lei</sup>104</span></div></div></div><div class="card" id="p-cinque-saporri" data-tags="new hot" data-section="Pizza Albă"><div class="card-name">Cinque Saporri<span class="alg"><span>1</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, gorgonzola, brie, ricotta, nuci, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-new">✦ Nou</span><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>49</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>85</span></div></div></div></div></section>
+</div><div id="categorie-noua-3" class="tab-content"><section class="menu-section"><div class="section-header"><h2>PIZZA ALBĂ</h2><p>32 cm Standard · 50 cm Familială</p></div><div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/suI3M4p.jpg" alt="Categorie nouă" data-epid="Pizza Albă" style="object-position: 44% 61%; transform: scale(1); transform-origin: 44% 61%; height: 420px;"></div><div class="pizza-grid"><div class="card" id="p-pollo-e-funghi" data-tags="new top" data-section="Pizza Albă"><div class="card-name">Pollo e Funghi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, piept de pui, ciuperci, ceapă</p><div class="prod-badges"><span class="pbadge pbadge-top">⭐ Recomandat</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">600g</span><span class="price-val"><sup>lei</sup>43</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1350g</span><span class="price-val"><sup>lei</sup>75</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-salmone-ricotta" data-tags="new" data-section="Pizza Albă"><div class="card-name">Salmone Ricotta<span class="alg"><span>1</span><span>4</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat de pizza, sos de smântână cu usturoi, mozzarella, ricotta, spanac, somon fume</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">520g</span><span class="price-val"><sup>lei</sup>55</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1175g</span><span class="price-val"><sup>lei</sup>95</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-bianca-carciofi" data-tags="new" data-section="Pizza Albă"><div class="card-name">Bianca Carciofi<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, bacon, anghinare, piper</p><div class="prod-badges"></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">550g</span><span class="price-val"><sup>lei</sup>45</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1250g</span><span class="price-val"><sup>lei</sup>78</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-tartufo-bianca" data-tags="new veg" data-section="Pizza Albă"><div class="card-name">Tartufo Bianca<span class="alg"><span>1</span><span>7</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, ciuperci, cremă de trufă, trufă de vară felii, parmezan</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">500g</span><span class="price-val"><sup>lei</sup>60</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1100g</span><span class="price-val"><sup>lei</sup>104</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-cinque-saporri" data-tags="new hot" data-section="Pizza Albă"><div class="card-name">Cinque Saporri<span class="alg"><span>1</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Blat pizza, sos de smântână cu usturoi, mozzarella, gorgonzola, brie, ricotta, nuci, hot honey</p><div class="prod-badges"><span class="pbadge pbadge-hot">🌶 Picant</span></div><div class="card-prices"><div class="price-item"><span class="price-label">Standard</span><span class="price-weight">580g</span><span class="price-val"><sup>lei</sup>49</span></div><div class="price-item"><span class="price-label">Familială</span><span class="price-weight">1300g</span><span class="price-val"><sup>lei</sup>85</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div></div></section>
 <footer class="contact">
   <span class="contact-label">Contactează-ne</span>
   <div class="contact-line">
@@ -2123,4 +2279,152 @@ nav label.navbtn {
 }
 </style>
 
+<script>
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        el.classList.remove('glow-anim');
+        void el.offsetWidth;
+        el.classList.add('glow-anim');
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  function observeCircles() {
+    var els = document.querySelectorAll('.new-circle');
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.remove('glow-anim');
+      observer.observe(els[i]);
+    }
+  }
+
+  window.addEventListener('load', function() { setTimeout(observeCircles, 200); });
+  document.addEventListener('change', function(e) {
+    if (e.target && e.target.type === 'radio') {
+      setTimeout(function() {
+        var els = document.querySelectorAll('.new-circle');
+        for (var i = 0; i < els.length; i++) { els[i].classList.remove('glow-anim'); }
+        observeCircles();
+      }, 150);
+    }
+  });
+})();
+</script>
+
+<!-- Modal produs -->
+<div class="prod-modal-overlay" id="prodModal">
+  <div class="prod-modal" id="prodModalInner">
+    <button class="prod-modal-close" id="prodModalClose" aria-label="Închide">×</button>
+    <button class="prod-modal-close-bottom" id="prodModalCloseBottom" aria-label="Închide" style="display:none">×</button>
+    <img class="prod-modal-img" id="prodModalImg" src="" alt="" style="display:none">
+    <div class="prod-modal-body">
+      <div class="prod-modal-name" id="prodModalName"></div>
+      <div class="prod-modal-ing" id="prodModalIng"></div>
+      <div class="prod-modal-price" id="prodModalPrice"></div>
+      <div id="prodModalAlgWrap" style="display:none">
+        <div class="prod-modal-alg-title">Alergeni</div>
+        <div class="prod-modal-alg-list" id="prodModalAlg"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  var ALERGENI = {
+    '1':'Gluten','2':'Crustacee','3':'Ouă','4':'Pește',
+    '5':'Arahide','6':'Soia','7':'Lapte','8':'Nuci',
+    '9':'Țelină','10':'Muștar','11':'Susan','12':'Dioxid de sulf',
+    '13':'Lupin','14':'Moluște'
+  };
+
+  var overlay = document.getElementById('prodModal');
+  var img     = document.getElementById('prodModalImg');
+  var name    = document.getElementById('prodModalName');
+  var ing     = document.getElementById('prodModalIng');
+  var price   = document.getElementById('prodModalPrice');
+  var algWrap = document.getElementById('prodModalAlgWrap');
+  var algList = document.getElementById('prodModalAlg');
+  var btnClose = document.getElementById('prodModalClose');
+  var btnCloseB= document.getElementById('prodModalCloseBottom');
+
+  function openModal(card) {
+    // Nume
+    var nameEl = card.querySelector('.card-name');
+    var nameText = nameEl ? nameEl.childNodes[0].textContent.trim() : '';
+    name.textContent = nameText;
+
+    // Ingrediente
+    var ingEl = card.querySelector('.card-ing');
+    ing.textContent = ingEl ? ingEl.textContent.trim() : '';
+
+    // Pret
+    var priceEl = card.querySelector('.price-val');
+    price.innerHTML = priceEl ? priceEl.innerHTML : '';
+
+    // Alergeni
+    var algNums = [];
+    if (nameEl) {
+      nameEl.querySelectorAll('.alg span').forEach(function(s) {
+        algNums.push(s.textContent.trim());
+      });
+    }
+    algList.innerHTML = '';
+    if (algNums.length > 0) {
+      algNums.forEach(function(n) {
+        if (ALERGENI[n]) {
+          var tag = document.createElement('span');
+          tag.className = 'prod-modal-alg-tag';
+          tag.textContent = n + ' – ' + ALERGENI[n];
+          algList.appendChild(tag);
+        }
+      });
+      algWrap.style.display = 'block';
+    } else {
+      algWrap.style.display = 'none';
+    }
+
+    // Poza — cauta data-img pe card sau ascunde
+    var imgSrc = card.getAttribute('data-img') || '';
+    if (imgSrc) {
+      img.src = imgSrc;
+      img.style.display = 'block';
+      btnClose.style.display = 'flex';
+      btnCloseB.style.display = 'none';
+    } else {
+      img.style.display = 'none';
+      btnClose.style.display = 'none';
+      btnCloseB.style.display = 'flex';
+    }
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Click pe card
+  document.addEventListener('click', function(e) {
+    var card = e.target.closest('.card');
+    if (card && !e.target.closest('.new-circle') && !e.target.closest('.prod-badges')) {
+      openModal(card);
+    }
+  });
+
+  btnClose.addEventListener('click', closeModal);
+  btnCloseB.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+</script>
 </body></html>
