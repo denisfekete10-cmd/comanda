@@ -2360,9 +2360,28 @@ nav label.navbtn {
     var ingEl = card.querySelector('.card-ing');
     ing.textContent = ingEl ? ingEl.textContent.trim() : '';
 
-    // Pret
-    var priceEl = card.querySelector('.price-val');
-    price.innerHTML = priceEl ? priceEl.innerHTML : '';
+    // Preturi — toate price-item cu label, greutate si pret
+    price.innerHTML = '';
+    var priceItems = card.querySelectorAll('.price-item');
+    priceItems.forEach(function(item) {
+      var label = item.querySelector('.price-label');
+      var weight = item.querySelector('.price-weight');
+      var val = item.querySelector('.price-val');
+      if (!val || !val.textContent.trim() || val.innerHTML.includes('<br>')) return;
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;';
+      var left = document.createElement('span');
+      left.style.cssText = 'font-size:.85rem; color:var(--muted,#888);';
+      var labelTxt = label ? label.textContent.trim() : '';
+      var weightTxt = weight ? weight.textContent.trim() : '';
+      left.textContent = [labelTxt, weightTxt].filter(Boolean).join(' · ');
+      var right = document.createElement('span');
+      right.style.cssText = 'font-size:1.05rem; font-weight:700; color:var(--crimson,#C0181A);';
+      right.innerHTML = val.innerHTML;
+      row.appendChild(left);
+      row.appendChild(right);
+      price.appendChild(row);
+    });
 
     // Alergeni
     var algNums = [];
