@@ -473,6 +473,24 @@ nav label.navbtn:hover {
   animation: popupIn .4s cubic-bezier(.34,1.56,.64,1) both;
 }
 #closed-popup.show { display: block; }
+#chef-popup {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1A1009;
+  border: 1px solid rgba(212,160,23,.35);
+  border-radius: 18px;
+  padding: 28px 28px 24px;
+  z-index: 999;
+  max-width: 300px;
+  width: 88%;
+  text-align: center;
+  font-family: var(--font-body);
+  box-shadow: 0 8px 40px rgba(0,0,0,.6);
+  animation: popupIn .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+#chef-popup.show { display: block; }
 @keyframes popupIn {
   from { opacity:0; transform:translate(-50%,-60%); }
   to   { opacity:1; transform:translate(-50%,-50%); }
@@ -1514,7 +1532,7 @@ nav label.navbtn:hover {
   <div class="section-banner" style="height: 400px;"><img class="banner-img" src="https://i.imgur.com/Mc8k1l5.jpg" alt="Desert" data-epid="Desert" style="object-position: 50% 100%; transform: scale(1); transform-origin: 50% 100%; height: 420px;"></div>
   <div class="pizza-grid">
 
-    <div class="card" id="p-papanasi-cu-nutella-si-frisca" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, smântână, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-papanasi" data-tags="veg" data-section="Deserturi">
+    <div class="card" id="p-papanasi-cu-nutella-si-frisca" data-tags="new veg" data-section="Deserturi"><div class="card-name">Papanași cu Nutella și frișcă<span class="alg"><span>1</span><span>3</span><span>7</span><span>8</span></span></div><p class="card-ing" data-has-text="1">Nutella, frișcă, topping caramel sărat, alune</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div><div class="card-prices"><div class="price-item"><span class="price-label"><span style="letter-spacing: 1.3px;">Porție</span></span><span class="price-weight"><span style="letter-spacing: 0.65px;">250g</span></span><span class="price-val"><sup>lei</sup>30</span></div><div class="new-circle"><div class="nc-dot"></div><span class="nc-text">Nou</span></div></div></div><div class="card" id="p-papanasi" data-tags="veg" data-section="Deserturi">
       <div class="card-name">Papanași<span class="alg"><span>1</span><span>3</span><span>7</span></span></div>
       <p class="card-ing" data-has-text="1">Dulceață de fructe de pădure, smântână</p><div class="prod-badges"><span class="pbadge pbadge-veg">🌿 Vegetarian</span></div>
       <div class="card-prices"><div class="price-item"><span class="price-label">Porție</span><span class="price-weight">250g</span><span class="price-val"><sup>lei</sup>30</span></div></div>
@@ -2274,9 +2292,58 @@ nav label.navbtn:hover {
     });
   }
 
+  // ── POPUP BUCATAR ABSENT (8-10 iulie) ──
+  function isChefAbsentPeriod() {
+    var now = new Date();
+    var start = new Date(now.getFullYear(), 6, 8, 0, 0, 0);
+    var end   = new Date(now.getFullYear(), 6, 10, 23, 59, 59);
+    return now >= start && now <= end;
+  }
+
+  var CHEF_GATED_TABS = ['tab-paste', 'tab-paste-forno', 'tab-supe-salate', 'tab-fructe-mare', 'tab-crispy', 'tab-desert'];
+
+  function showChefAbsentPopup() {
+    if (document.getElementById('chef-popup')) return;
+    var ov = document.createElement('div');
+    ov.id = 'popup-overlay'; ov.className = 'show';
+    document.body.appendChild(ov);
+    var pop = document.createElement('div');
+    pop.id = 'chef-popup'; pop.className = 'show';
+    pop.innerHTML =
+      '<div class="popup-clock">👨‍🍳</div>' +
+      '<div class="popup-title">Bucătarul nostru e în concediu</div>' +
+      '<div class="popup-text">În perioada <strong>8–10 iulie</strong> pregătim doar pizza.<br>Restul meniului revine din 11 iulie!</div>' +
+      '<div class="popup-progress"><div class="popup-progress-bar"></div></div>';
+    document.body.appendChild(pop);
+    var t = setTimeout(function() {
+      pop.style.transition = 'opacity .3s';
+      pop.style.opacity = '0';
+      ov.style.transition = 'opacity .3s';
+      ov.style.opacity = '0';
+      setTimeout(function() { pop.remove(); ov.remove(); }, 300);
+    }, 10000);
+    ov.addEventListener('click', function() {
+      clearTimeout(t); pop.remove(); ov.remove();
+    });
+  }
+
   document.querySelectorAll('.home-cat').forEach(function(cat) {
     cat.addEventListener('click', function() {
-      setTimeout(showClosedPopup, 600);
+      var goto = cat.getAttribute('data-goto');
+      if (isChefAbsentPeriod() && CHEF_GATED_TABS.indexOf(goto) !== -1) {
+        setTimeout(showChefAbsentPopup, 600);
+      } else {
+        setTimeout(showClosedPopup, 600);
+      }
+    });
+  });
+
+  document.querySelectorAll('label.navbtn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tabId = 'tab-' + btn.getAttribute('data-tab');
+      if (isChefAbsentPeriod() && CHEF_GATED_TABS.indexOf(tabId) !== -1) {
+        setTimeout(showChefAbsentPopup, 150);
+      }
     });
   });
 
